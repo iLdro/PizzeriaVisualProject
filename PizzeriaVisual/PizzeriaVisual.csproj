@@ -64,7 +64,6 @@
     <Compile Include="ClerkLogin.Designer.cs">
       <DependentUpon>ClerkLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="Delivery.cs" />
     <Compile Include="Home.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,12 +72,10 @@
     </Compile>
     <Compile Include="Interfaces\IClientServices.cs" />
     <Compile Include="Interfaces\IClerkServices.cs" />
-    <Compile Include="Interfaces\IDeliveryServices.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ClerkServices.cs" />
     <Compile Include="Services\ClientServices.cs" />
-    <Compile Include="Services\DeliveryServices.cs" />
     <EmbeddedResource Include="ClienLogin.resx">
       <DependentUpon>ClienLogin.cs</DependentUpon>
     </EmbeddedResource>
@@ -99,7 +96,6 @@
     </Compile>
     <None Include="Databases\Clerk.json" />
     <None Include="Databases\Client.json" />
-    <None Include="Databases\Delivery.json" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

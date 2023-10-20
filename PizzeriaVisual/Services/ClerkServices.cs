@@ -16,7 +16,7 @@ namespace PizzeriaVisual.Services
         public ClerkServices()
         {
             clerks = new List<Clerk>();
-            clerks = DatabaseManager.AllItems<Clerk>("C:\\Users\\adria\\source\\repos\\PizzeriaVisualProject\\PizzeriaVisual\\Databases\\Clerk.json");
+            clerks = DatabaseManager.AllItems<Clerk>("C:\\Users\\jukle\\source\\repos\\PizzeriaVisual\\PizzeriaVisual\\Databases\\Clerk.json");
             Console.WriteLine(clerks);
 
         }
@@ -28,7 +28,7 @@ namespace PizzeriaVisual.Services
             Clerk clerk = new Clerk(newClerkId, name, surname, address, phoneNumber);
             clerks.Add(clerk);
 
-            DatabaseManager.CreateItem(clerk, "C:\\Users\\adria\\source\\repos\\PizzeriaVisualProject\\PizzeriaVisual\\Databases\\Clerk.json");
+            DatabaseManager.CreateItem(clerk, "C:\\Users\\jukle\\source\\repos\\PizzeriaVisual\\PizzeriaVisual\\Databases\\Clerk.json");
             return newClerkId;
         }
 

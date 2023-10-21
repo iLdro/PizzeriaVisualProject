@@ -38,7 +38,12 @@ namespace PizzeriaVisual
             var restaurant = textBox3.Text;
             var address = textBox4.Text;
 
-            clerkServices.CreateClerk(name, surname, restaurant, address);
+            var result = clerkServices.CreateClerk(name, surname, restaurant, address);
+
+            if(result != -1)
+            {
+
+            }
         }
     }
 }

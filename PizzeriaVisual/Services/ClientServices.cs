@@ -30,7 +30,7 @@ namespace PizzeriaVisual.Services
 
             clients.Add(client);
 
-            DatabaseManager.CreateItem(clients, "C:\\Users\\jukle\\source\\repos\\PizzeriaVisual\\PizzeriaVisual\\Databases\\Client.json");
+            DatabaseManager.CreateItem(client, "C:\\Users\\jukle\\source\\repos\\PizzeriaVisual\\PizzeriaVisual\\Databases\\Client.json");
 
             return newClientId;
         }

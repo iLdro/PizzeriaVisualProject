@@ -35,9 +35,10 @@
             this.clientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clerckToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loginToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.kitchenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deliveryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loginToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.loginToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -76,7 +77,7 @@
             // loginToolStripMenuItem
             // 
             this.loginToolStripMenuItem.Name = "loginToolStripMenuItem";
-            this.loginToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
+            this.loginToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.loginToolStripMenuItem.Text = "Login";
             // 
             // clerckToolStripMenuItem
@@ -88,6 +89,13 @@
             this.clerckToolStripMenuItem.Text = "Clerck";
             this.clerckToolStripMenuItem.Click += new System.EventHandler(this.clerckToolStripMenuItem_Click);
             // 
+            // loginToolStripMenuItem1
+            // 
+            this.loginToolStripMenuItem1.Name = "loginToolStripMenuItem1";
+            this.loginToolStripMenuItem1.Size = new System.Drawing.Size(104, 22);
+            this.loginToolStripMenuItem1.Text = "Login";
+            this.loginToolStripMenuItem1.Click += new System.EventHandler(this.loginToolStripMenuItem1_Click);
+            // 
             // kitchenToolStripMenuItem
             // 
             this.kitchenToolStripMenuItem.Name = "kitchenToolStripMenuItem";
@@ -96,16 +104,18 @@
             // 
             // deliveryToolStripMenuItem
             // 
+            this.deliveryToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.loginToolStripMenuItem2});
             this.deliveryToolStripMenuItem.Name = "deliveryToolStripMenuItem";
             this.deliveryToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.deliveryToolStripMenuItem.Text = "Delivery";
             // 
-            // loginToolStripMenuItem1
+            // loginToolStripMenuItem2
             // 
-            this.loginToolStripMenuItem1.Name = "loginToolStripMenuItem1";
-            this.loginToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.loginToolStripMenuItem1.Text = "Login";
-            this.loginToolStripMenuItem1.Click += new System.EventHandler(this.loginToolStripMenuItem1_Click);
+            this.loginToolStripMenuItem2.Name = "loginToolStripMenuItem2";
+            this.loginToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.loginToolStripMenuItem2.Text = "Login";
+            this.loginToolStripMenuItem2.Click += new System.EventHandler(this.loginToolStripMenuItem2_Click);
             // 
             // Home
             // 
@@ -134,6 +144,7 @@
         private System.Windows.Forms.ToolStripMenuItem deliveryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loginToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loginToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem loginToolStripMenuItem2;
     }
 }
 

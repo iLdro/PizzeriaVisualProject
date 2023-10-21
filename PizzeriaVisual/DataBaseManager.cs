@@ -60,7 +60,7 @@ namespace PizzeriaVisual
             return filteredItems;
         }
 
-        public static List<T> LoadDataFromJsonFile<T>(string filePath) where T : class
+        private static List<T> LoadDataFromJsonFile<T>(string filePath) where T : class
         {
             List<T> data;
             if (File.Exists(filePath))
@@ -87,7 +87,7 @@ namespace PizzeriaVisual
 
 
 
-        public static void SaveDataToJsonFile<T>(List<T> data, string filePath) where T : class
+        private static void SaveDataToJsonFile<T>(List<T> data, string filePath) where T : class
         {
             string json = JsonSerializer.Serialize(data);
             File.WriteAllText(filePath, json);

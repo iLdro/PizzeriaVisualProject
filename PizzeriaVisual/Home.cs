@@ -51,6 +51,12 @@ namespace PizzeriaVisual
         private void loginToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             new ClerkLogin().Show();
+            this.Hide();
+        }
+
+        private void loginToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

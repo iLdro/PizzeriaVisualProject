@@ -1,4 +1,4 @@
-﻿internal class Client
+﻿public class Client
 {
     public Client() { } // Constructeur par défaut
 

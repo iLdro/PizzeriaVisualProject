@@ -1,4 +1,4 @@
-﻿internal class Clerk
+﻿public class Clerk
 {
     public Clerk() { } // Constructeur par défaut
 

@@ -8,7 +8,7 @@ namespace PizzeriaVisual.Interfaces
 {
     internal interface IClientServices
     {
-        int CreateClient(string name, string surname, string address, string phoneNumber);
+        Client CreateClient(string name, string surname, string address, string phoneNumber);
         Client FindClientByPhoneNumber(string phoneNumber);
     }
 }

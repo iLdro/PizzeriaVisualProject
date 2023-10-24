@@ -14,18 +14,18 @@ namespace PizzeriaVisual.Services
         public DeliveryServices()
         {
             delivers = new List<Delivery>();
-            delivers = DatabaseManager.AllItems<Delivery>("C:\\Users\\adria\\source\\repos\\PizzeriaVisualProject\\PizzeriaVisual\\Databases\\Delivery.json");
+            delivers = DatabaseManager.AllItems<Delivery>("C:\\Users\\jukle\\source\\repos\\PizzeriaVisual\\PizzeriaVisual\\Databases\\Delivery.json");
             Console.WriteLine(delivers);
         }
 
-        public int CreateDelivery(string name, string surname, string address, string phoneNumber)
+        public int CreateDelivery(string name, string surname, string phoneNumber)
         {
             int lastDeliveryId = delivers.Count > 0 ? delivers.Max(c => c.Id) : 0;
             int newDeliveryId = lastDeliveryId + 1;
 
-            Delivery delivery = new Delivery(newDeliveryId, name, surname, address, phoneNumber);
+            Delivery delivery = new Delivery(newDeliveryId, name, surname,  phoneNumber);
 
-            DatabaseManager.CreateItem(delivery, "C:\\Users\\adria\\source\\repos\\PizzeriaVisualProject\\PizzeriaVisual\\Databases\\Delivery.json");
+            DatabaseManager.CreateItem(delivery, "C:\\Users\\jukle\\source\\repos\\PizzeriaVisual\\PizzeriaVisual\\Databases\\Delivery.json");
             return newDeliveryId;
         }
     }

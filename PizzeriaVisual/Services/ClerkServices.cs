@@ -20,7 +20,7 @@ namespace PizzeriaVisual.Services
             Console.WriteLine(clerks);
 
         }
-        public int CreateClerk(string name, string surname, string address, string phoneNumber)
+        public Clerk CreateClerk(string name, string surname, string address, string phoneNumber)
         {
             int lastClerkId = clerks.Count > 0 ? clerks.Max(c => c.Id) : 0;
             int newClerkId = lastClerkId + 1;
@@ -29,9 +29,14 @@ namespace PizzeriaVisual.Services
             clerks.Add(clerk);
 
             DatabaseManager.CreateItem(clerk, "C:\\Users\\jukle\\source\\repos\\PizzeriaVisual\\PizzeriaVisual\\Databases\\Clerk.json");
-            return newClerkId;
+            return clerk;
         }
 
-
+        public Clerk FindClerkByPhoneNumber(string phoneNumber)
+        {
+            Clerk a = DatabaseManager.FindBy<Clerk>("C:\\Users\\jukle\\source\\repos\\PizzeriaVisual\\PizzeriaVisual\\Databases\\Client.json", c => c.PhoneNumber == phoneNumber).FirstOrDefault();
+            Console.WriteLine(a.Id);
+            return a;
+        }
     }
 }

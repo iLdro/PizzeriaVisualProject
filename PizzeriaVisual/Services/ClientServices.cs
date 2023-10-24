@@ -17,7 +17,7 @@ namespace PizzeriaVisual.Services
             Console.WriteLine(clients);
         }
 
-        public int CreateClient(string name, string surname, string address, string phoneNumber)
+        public Client CreateClient(string name, string surname, string address, string phoneNumber)
         {
             Console.WriteLine(clients);
             Console.WriteLine("Nombre de clients avant l'ajout : " + clients.Count);
@@ -32,13 +32,15 @@ namespace PizzeriaVisual.Services
 
             DatabaseManager.CreateItem(client, "C:\\Users\\jukle\\source\\repos\\PizzeriaVisual\\PizzeriaVisual\\Databases\\Client.json");
 
-            return newClientId;
+            return client;
         }
 
 
         public Client FindClientByPhoneNumber(string phoneNumber)
         {
-            return DatabaseManager.FindBy<Client>("./Database/Client.json", c => c.PhoneNumber == phoneNumber).FirstOrDefault();
+            Client a = DatabaseManager.FindBy<Client>("C:\\Users\\jukle\\source\\repos\\PizzeriaVisual\\PizzeriaVisual\\Databases\\Client.json", c => c.PhoneNumber == phoneNumber).FirstOrDefault();
+            Console.WriteLine(a.Id);
+            return a;
         }
     }
 

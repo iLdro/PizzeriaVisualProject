@@ -28,11 +28,6 @@ namespace PizzeriaVisual
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            
-        }
-
-        private void ClerkLogin_Load(object sender, EventArgs e)
-        {
             var name = textBox1.Text;
             var surname = textBox2.Text;
             var restaurant = textBox3.Text;
@@ -40,10 +35,33 @@ namespace PizzeriaVisual
 
             var result = clerkServices.CreateClerk(name, surname, restaurant, address);
 
-            if(result != -1)
+            if (result.Id != null)
             {
-
+                Console.WriteLine("Clerk created");
             }
+        }
+
+        private void ClerkLogin_Load(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var phoneNumber = textBox5.Text;
+            var clerk = clerkServices.FindClerkByPhoneNumber(phoneNumber);
+            if (clerk == null)
+            {
+                MessageBox.Show("Clerk not found");
+                return;
+            }
+            else if (clerk != null)
+            {
+                var clerkOperations = new ClerkOperations(clerk);
+                clerkOperations.Show();
+                this.Hide();
+            }
+
         }
     }
 }

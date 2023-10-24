@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PizzeriaVisual.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,14 +13,15 @@ namespace PizzeriaVisual
         public DateTime Date { get; set; }
         public int NbPizza { get; set; }
         public List<string> Drinks { get; set; }
-        public List<int> PizzaSize { get; set; }
-        public List<List<string>> Toppings { get; set; }
-        public int TotalPrice { get; set; }
+        public List<Pizza> Pizzas { get; set; }
+        public double TotalPrice { get; set; }
         public string ClientName { get; set; }
         public string ClerkName { get; set; }
         public int ClientId { get; set; }
 
         private int _clerkId;
+
+        private CommunicationServices _communicationServices;
 
         public int ClerkId
         {
@@ -27,8 +29,6 @@ namespace PizzeriaVisual
             set
             {
                 _clerkId = value;
-
-                // Modifiez le statut en fonction de la valeur de ClerkId
                 if (value >= 0)
                 {
                     Status = 1;
@@ -43,34 +43,36 @@ namespace PizzeriaVisual
             set
             {
                 _status = value;
-                sendMessage();
+               ;
             }
         }
 
         public int DeliveryId { get; set; }
-        public Order(int id, DateTime date, int nbPizza, List<string> drinks, List<int> pizzaSize, List<List<string>> toppings, int totalPrice, string clientName, string clerkName, int clientId, int clerkId, int status, int deliveryId)
+        public Order(int id, DateTime date, int nbPizza, List<string> drinks, List<Pizza> pizzas, double totalPrice, string clientName, string clerkName, int clientId, int clerkId)
         {
             Id = id;
             Date = date;
             NbPizza = nbPizza;
             Drinks = drinks;
-            PizzaSize = pizzaSize;
-            Toppings = toppings;
+            Pizzas = pizzas;
             TotalPrice = totalPrice;
             ClientName = clientName;
             ClerkName = clerkName;
             ClientId = clientId;
-            ClerkId = -1;
+            ClerkId = clerkId;
             Status = 0;
-            DeliveryId = deliveryId;
-            this.sendMessage();
+            DeliveryId = -1;
+            _communicationServices = new CommunicationServices();
         }
-        
+
         public void sendMessage()
         {
-            if(this.Status == 0)
+            if(Status == 0)
             {
                 Console.WriteLine("Your order is being prepared");
+                sendMessageToClient();
+                sendMessageToClerk();
+                sendMessagetoAllDelivery();
             }
             else if(this.Status == 1)
             {
@@ -80,14 +82,25 @@ namespace PizzeriaVisual
             {
                 Console.WriteLine("Your order is being delivered");
             }
-            else if(this.Status == 3)
-            {
-                Console.WriteLine("Your order has been delivered");
-            }
-            else
-            {
-                Console.WriteLine("Your order has been cancelled");
-            }
         }
+
+        public void sendMessageToClient()
+        {
+            Console.WriteLine("Id",ClientId);
+            string message = "Your order is ready wiht " + Pizzas + "drinks" + Drinks;
+            _communicationServices.SendMessage(message, "client_"+ ClientId);
+        }
+
+        public void sendMessageToClerk()
+        {
+            string message = "Your order is ready wiht ";
+            _communicationServices.SendMessage(message, "clerk_" + ClerkId);
+        }
+        public void sendMessagetoAllDelivery()
+        {
+            string message = "The order number " + Id + " is ready to be taken";
+            _communicationServices.SendMessage(message, "delivery");
+        }
+        
     }
 }

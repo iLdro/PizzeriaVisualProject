@@ -34,5 +34,19 @@ namespace PizzeriaVisual
         {
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var phone = textBox4.Text;
+            var result = deliveryServices.FindDeliveryByPhoneNumber(phone);
+            if (result != null)
+            {
+                new DeliveryOperations(result).Show();
+            }
+            else
+            {
+                MessageBox.Show("Delivery not found");
+            }
+        }
     }
 }

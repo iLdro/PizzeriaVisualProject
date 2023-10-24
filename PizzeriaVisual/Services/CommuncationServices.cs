@@ -7,6 +7,7 @@ using PizzeriaVisual.Interfaces;
 using RabbitMQ;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using RabbitMQ.Client.Exceptions;
 
 namespace PizzeriaVisual.Services
 {
@@ -25,29 +26,91 @@ namespace PizzeriaVisual.Services
 
         public void SendMessage(string message, string queueName)
         {
-           
-            _channel.QueueDeclare(queue: queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
+            _channel.QueueDeclare(
+                queue: queueName,
+                durable: false,    // false signifie que la file d'attente n'est pas durable
+                exclusive: false,
+                autoDelete: false,
+                arguments: null
+            );
+            _channel.QueueDeclarePassive(queueName);
             var body = Encoding.UTF8.GetBytes(message);
             _channel.BasicPublish(exchange: "", routingKey: queueName, basicProperties: null, body: body);
             Console.WriteLine($"Sent to Queue '{queueName}': {message}");
-            
         }
 
-        public void ProcessMessage(string queueName, bool consumeAll = false)
+        public async Task<string> ProcessOneMessage(string queueName)
         {
-            var consumer = new EventingBasicConsumer(_channel);
-            consumer.Received += (model, ea) =>
+            using (var channel = _connection.CreateModel())
             {
-                var body = ea.Body.ToArray();
-                var message = Encoding.UTF8.GetString(body);
-                Console.WriteLine($"Received from Queue '{queueName}': {message}");
-                if (!consumeAll)
-                {
-                    _channel.BasicAck(ea.DeliveryTag, false);
-                }
-            };
+                Console.WriteLine("queueName: " + queueName);
+                string receivedMessage = null;
 
-            _channel.BasicConsume(queue: queueName, autoAck: false, consumer: consumer);
+                try
+                {
+                    var consumer = new EventingBasicConsumer(channel);
+
+                  
+                    var tcs = new TaskCompletionSource<string>();
+
+                    consumer.Received += (model, ea) =>
+                    {
+                        var body = ea.Body.ToArray();
+                        receivedMessage = Encoding.UTF8.GetString(body);
+                        Console.WriteLine($"Received from Queue '{queueName}': {receivedMessage}");                   
+
+                       
+                        tcs.SetResult(receivedMessage);
+                    };
+
+                    channel.BasicConsume(queue: queueName, autoAck: false, consumer: consumer);
+
+                    // Attendre la réception d'un message.
+                    receivedMessage = await tcs.Task;
+                }
+                catch (OperationInterruptedException ex)
+                {
+                    // Gérer l'exception ici.
+                    Console.WriteLine($"La file d'attente '{queueName}' n'existe pas. Détails : {ex.Message}");
+                }
+
+                return receivedMessage;
+            }
+        }
+
+
+        public List<string> ProcessAllMessages(string queueName)
+        {
+            using (var channel = _connection.CreateModel())
+            {
+                Console.WriteLine("queueName: " + queueName);
+                var receivedMessages = new List<string>();
+
+                try
+                {
+                    var consumer = new EventingBasicConsumer(channel);
+                    consumer.Received += (model, ea) =>
+                    {
+                        var body = ea.Body.ToArray();
+                        var receivedMessage = Encoding.UTF8.GetString(body);
+                        Console.WriteLine($"Received from Queue '{queueName}': {receivedMessage}");
+                        receivedMessages.Add(receivedMessage);
+                    };
+
+                    channel.BasicConsume(queue: queueName, autoAck: true, consumer: consumer);
+                }
+                catch (OperationInterruptedException ex)
+                {
+                    // Gérer l'exception ici.
+                    Console.WriteLine($"La file d'attente '{queueName}' n'existe pas. Détails : {ex.Message}");
+                }
+
+                return receivedMessages;
+            }
         }
     }
+
+
+
 }
+

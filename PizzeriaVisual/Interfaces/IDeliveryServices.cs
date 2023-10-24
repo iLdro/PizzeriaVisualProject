@@ -7,6 +7,8 @@ namespace PizzeriaVisual.Interfaces
 {
     internal interface IDeliveryServices
     {
-        int CreateDelivery(string name, string surname, string phoneNumber);
+        Delivery CreateDelivery(string name, string surname, string phoneNumber);
+
+        Delivery FindDeliveryByPhoneNumber(string phoneNumber);
     }
 }

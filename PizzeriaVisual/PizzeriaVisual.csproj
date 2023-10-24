@@ -80,6 +80,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeliveryOperations.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeliveryOperations.Designer.cs">
+      <DependentUpon>DeliveryOperations.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pizza.cs" />
     <Compile Include="ClerkOperations.cs">
       <SubType>Form</SubType>
@@ -134,6 +140,9 @@
     <Compile Include="Services\ClerkServices.cs" />
     <Compile Include="Services\ClientServices.cs" />
     <Compile Include="Services\DeliveryServices.cs" />
+    <EmbeddedResource Include="DeliveryOperations.resx">
+      <DependentUpon>DeliveryOperations.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ClerkOperations.resx">
       <DependentUpon>ClerkOperations.cs</DependentUpon>
     </EmbeddedResource>

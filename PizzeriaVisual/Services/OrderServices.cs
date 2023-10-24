@@ -121,9 +121,11 @@ namespace PizzeriaVisual.Services
             return 1;
         }
 
-        public int AddDelivery(int orderId, int deliveryId)
+        public void AddDelivery(int orderId, int deliveryId)
         {
-            throw new NotImplementedException();
+            Order a = DatabaseManager.FindBy<Order>("C:\\Users\\jukle\\source\\repos\\PizzeriaVisual\\PizzeriaVisual\\Databases\\Order.json", o => o.Id == orderId).FirstOrDefault();
+            a.ClerkId = deliveryId;
+            a.Status = 1;
         }
 
         public int validateOrder(int orderId)

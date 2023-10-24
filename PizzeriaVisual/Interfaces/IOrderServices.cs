@@ -11,7 +11,7 @@ namespace PizzeriaVisual.Interfaces
          int CreateOrder(DateTime date, List<string> Drinks, List<Pizza> pizzas, int TotalPrice, string clientName, string clerkName, int clientId, int clerkId, int status = 0);
 
 
-        int AddDelivery(int orderId, int deliveryId);
+        void AddDelivery(int orderId, int deliveryId);
 
         int validateOrder(int orderId);
     }

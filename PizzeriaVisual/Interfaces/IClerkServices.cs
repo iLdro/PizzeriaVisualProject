@@ -8,7 +8,9 @@ namespace PizzeriaVisual.Interfaces
 {
     internal interface IClerkServices
     {
-        int CreateClerk(string name, string surname, string address, string phoneNumber);
+        Clerk CreateClerk(string name, string surname, string address, string phoneNumber);
+
+        Clerk FindClerkByPhoneNumber(string phoneNumber);
        
     }
 }

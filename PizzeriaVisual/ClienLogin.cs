@@ -71,5 +71,13 @@ namespace PizzeriaVisual
             new Home().Show();
             this.Close();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var PhoneNumber = textBox6.Text;
+            Console.WriteLine(PhoneNumber);
+            var client = clientServices.FindClientByPhoneNumber(PhoneNumber);
+            Console.WriteLine(client);
+        }
     }
 }

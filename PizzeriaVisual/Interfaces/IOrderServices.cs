@@ -8,8 +8,9 @@ namespace PizzeriaVisual.Interfaces
 {
     internal interface IOrderServices
     {
-        int CreateOrder(DateTime date, int NbPizza, List<string> Drinks, List<int> PizzaSize, List<List<string>> Toppings, int TotalPrice, string clientName, string clerkName, int clientId, int clerkId, int status= 0);
-        
+         int CreateOrder(DateTime date, List<string> Drinks, List<Pizza> pizzas, int TotalPrice, string clientName, string clerkName, int clientId, int clerkId, int status = 0);
+
+
         int AddDelivery(int orderId, int deliveryId);
 
         int validateOrder(int orderId);

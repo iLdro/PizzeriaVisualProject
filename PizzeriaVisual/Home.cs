@@ -35,7 +35,6 @@ namespace PizzeriaVisual
         private void clientToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new ClienLogin().Show();
-            this.Hide();
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -51,12 +50,16 @@ namespace PizzeriaVisual
         private void loginToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             new ClerkLogin().Show();
-            this.Hide();
         }
 
         private void loginToolStripMenuItem2_Click(object sender, EventArgs e)
         {
+            new DeliveryLogin().Show();
+        }
 
+        private void loginToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+           
         }
     }
 }

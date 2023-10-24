@@ -79,6 +79,7 @@
             this.loginToolStripMenuItem.Name = "loginToolStripMenuItem";
             this.loginToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.loginToolStripMenuItem.Text = "Login";
+            this.loginToolStripMenuItem.Click += new System.EventHandler(this.loginToolStripMenuItem_Click);
             // 
             // clerckToolStripMenuItem
             // 
@@ -113,7 +114,7 @@
             // loginToolStripMenuItem2
             // 
             this.loginToolStripMenuItem2.Name = "loginToolStripMenuItem2";
-            this.loginToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.loginToolStripMenuItem2.Size = new System.Drawing.Size(104, 22);
             this.loginToolStripMenuItem2.Text = "Login";
             this.loginToolStripMenuItem2.Click += new System.EventHandler(this.loginToolStripMenuItem2_Click);
             // 

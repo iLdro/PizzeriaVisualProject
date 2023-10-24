@@ -4,7 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PizzeriaVisual.Interfaces;
+using RabbitMQ;
 
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
 namespace PizzeriaVisual.Services
 {
     internal class ClientServices : IClientServices
@@ -13,10 +16,22 @@ namespace PizzeriaVisual.Services
         public ClientServices()
         {
             clients = new List<Client>();
-            clients = DatabaseManager.AllItems<Client>("C:\\Users\\jukle\\source\\repos\\PizzeriaVisual\\PizzeriaVisual\\Databases\\Client.json");
+            clients = DatabaseManager.AllItems<Client>("C:\\Users\\adria\\source\\repos\\skjdfkjsdfh\\PizzeriaVisual\\Databases\\Client.json");
             Console.WriteLine(clients);
         }
+        private CommunicationServices _communicationServices;
+        private string _queueName;
 
+        public ClientServices(string queueName)
+        {
+            _communicationServices = new CommunicationServices();
+            _queueName = queueName;
+        }
+
+        public void ListenForMessages()
+        {
+            _communicationServices.ProcessMessage(_queueName);
+        }
         public Client CreateClient(string name, string surname, string address, string phoneNumber)
         {
             Console.WriteLine(clients);
@@ -30,7 +45,7 @@ namespace PizzeriaVisual.Services
 
             clients.Add(client);
 
-            DatabaseManager.CreateItem(client, "C:\\Users\\jukle\\source\\repos\\PizzeriaVisual\\PizzeriaVisual\\Databases\\Client.json");
+            DatabaseManager.CreateItem(client, "C:\\Users\\adria\\source\\repos\\skjdfkjsdfh\\PizzeriaVisual\\Databases\\Client.json");
 
             return client;
         }
@@ -38,7 +53,7 @@ namespace PizzeriaVisual.Services
 
         public Client FindClientByPhoneNumber(string phoneNumber)
         {
-            Client a = DatabaseManager.FindBy<Client>("C:\\Users\\jukle\\source\\repos\\PizzeriaVisual\\PizzeriaVisual\\Databases\\Client.json", c => c.PhoneNumber == phoneNumber).FirstOrDefault();
+            Client a = DatabaseManager.FindBy<Client>("C:\\Users\\adria\\source\\repos\\skjdfkjsdfh\\PizzeriaVisual\\Databases\\Client.json", c => c.PhoneNumber == phoneNumber).FirstOrDefault();
             Console.WriteLine(a.Id);
             return a;
         }

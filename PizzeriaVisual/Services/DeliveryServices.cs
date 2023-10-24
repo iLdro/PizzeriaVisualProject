@@ -14,7 +14,7 @@ namespace PizzeriaVisual.Services
         public DeliveryServices()
         {
             delivers = new List<Delivery>();
-            delivers = DatabaseManager.AllItems<Delivery>("C:\\Users\\jukle\\source\\repos\\PizzeriaVisual\\PizzeriaVisual\\Databases\\Delivery.json");
+            delivers = DatabaseManager.AllItems<Delivery>("C:\\Users\\adria\\source\\repos\\skjdfkjsdfh\\PizzeriaVisual\\Databases\\Delivery.json");
             Console.WriteLine(delivers);
         }
 
@@ -25,7 +25,7 @@ namespace PizzeriaVisual.Services
 
             Delivery delivery = new Delivery(newDeliveryId, name, surname,  phoneNumber);
 
-            DatabaseManager.CreateItem(delivery, "C:\\Users\\jukle\\source\\repos\\PizzeriaVisual\\PizzeriaVisual\\Databases\\Delivery.json");
+            DatabaseManager.CreateItem(delivery, "C:\\Users\\adria\\source\\repos\\skjdfkjsdfh\\PizzeriaVisual\\Databases\\Delivery.json");
             return newDeliveryId;
         }
     }

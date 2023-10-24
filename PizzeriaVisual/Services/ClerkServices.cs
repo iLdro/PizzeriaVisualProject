@@ -16,7 +16,7 @@ namespace PizzeriaVisual.Services
         public ClerkServices()
         {
             clerks = new List<Clerk>();
-            clerks = DatabaseManager.AllItems<Clerk>("C:\\Users\\jukle\\source\\repos\\PizzeriaVisual\\PizzeriaVisual\\Databases\\Clerk.json");
+            clerks = DatabaseManager.AllItems<Clerk>("C:\\Users\\adria\\source\\repos\\skjdfkjsdfh\\PizzeriaVisual\\Databases\\Clerk.json");
             Console.WriteLine(clerks);
 
         }
@@ -28,13 +28,13 @@ namespace PizzeriaVisual.Services
             Clerk clerk = new Clerk(newClerkId, name, surname, address, phoneNumber);
             clerks.Add(clerk);
 
-            DatabaseManager.CreateItem(clerk, "C:\\Users\\jukle\\source\\repos\\PizzeriaVisual\\PizzeriaVisual\\Databases\\Clerk.json");
+            DatabaseManager.CreateItem(clerk, "C:\\Users\\adria\\source\\repos\\skjdfkjsdfh\\PizzeriaVisual\\Databases\\Clerk.json");
             return clerk;
         }
 
         public Clerk FindClerkByPhoneNumber(string phoneNumber)
         {
-            Clerk a = DatabaseManager.FindBy<Clerk>("C:\\Users\\jukle\\source\\repos\\PizzeriaVisual\\PizzeriaVisual\\Databases\\Client.json", c => c.PhoneNumber == phoneNumber).FirstOrDefault();
+            Clerk a = DatabaseManager.FindBy<Clerk>("C:\\Users\\adria\\source\\repos\\skjdfkjsdfh\\PizzeriaVisual\\Databases\\Client.json", c => c.PhoneNumber == phoneNumber).FirstOrDefault();
             Console.WriteLine(a.Id);
             return a;
         }

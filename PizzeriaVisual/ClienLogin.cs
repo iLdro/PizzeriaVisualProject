@@ -78,6 +78,10 @@ namespace PizzeriaVisual
             Console.WriteLine(PhoneNumber);
             var client = clientServices.FindClientByPhoneNumber(PhoneNumber);
             Console.WriteLine(client);
+            ClientMessage clientMessageForm = new ClientMessage();
+
+            clientMessageForm.Initialize(PhoneNumber);  
+            clientMessageForm.Show();
         }
     }
 }

@@ -63,7 +63,7 @@ namespace PizzeriaVisual.Services
                         tcs.SetResult(receivedMessage);
                     };
 
-                    channel.BasicConsume(queue: queueName, autoAck: false, consumer: consumer);
+                    channel.BasicConsume(queue: queueName, autoAck: true, consumer: consumer);
 
                     // Attendre la réception d'un message.
                     receivedMessage = await tcs.Task;

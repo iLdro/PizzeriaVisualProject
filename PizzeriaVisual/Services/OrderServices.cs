@@ -123,14 +123,19 @@ namespace PizzeriaVisual.Services
 
         public void AddDelivery(int orderId, int deliveryId)
         {
+            Console.WriteLine("Oder" + orderId + "DeliveryId" + deliveryId);
             Order a = DatabaseManager.FindBy<Order>("C:\\Users\\jukle\\source\\repos\\PizzeriaVisual\\PizzeriaVisual\\Databases\\Order.json", o => o.Id == orderId).FirstOrDefault();
-            a.ClerkId = deliveryId;
+            Console.WriteLine("Find this one " + a.Id);
+            a.DeliveryId = deliveryId;
             a.Status = 1;
+            a.sendMessage();    
         }
 
         public int validateOrder(int orderId)
         {
-            throw new NotImplementedException();
+            Order a = DatabaseManager.FindBy<Order>("C:\\Users\\jukle\\source\\repos\\PizzeriaVisual\\PizzeriaVisual\\Databases\\Order.json", o => o.Id == orderId).FirstOrDefault();
+            a.Status = 2;
+            a.sendMessage();
         }
     }
 }

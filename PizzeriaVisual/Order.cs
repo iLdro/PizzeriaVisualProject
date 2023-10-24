@@ -20,23 +20,11 @@ namespace PizzeriaVisual
         public string ClerkName { get; set; }
         public int ClientId { get; set; }
 
-        private int _clerkId;
+        public int ClerkId { get; set; }
 
         private CommunicationServices _communicationServices;
 
-        public int ClerkId
-        {
-            get { return _clerkId; }
-            set
-            {
-                _clerkId = value;
-                if (value >= 0)
-                {
-                    Status = 1;
-                }
-            }
-        }
-
+      
         private int _status;
         public int Status
         {
@@ -47,8 +35,16 @@ namespace PizzeriaVisual
                ;
             }
         }
-
-        public int DeliveryId { get; set; }
+        private int _deliveryId;
+         public int DeliveryId
+        {
+            get { return _deliveryId; }
+            set
+            {
+                _deliveryId = value;
+                ;
+            }
+        }
         public Order(int id, DateTime date, int nbPizza, List<string> drinks, List<Pizza> pizzas, double totalPrice, string clientName, string clerkName, int clientId, int clerkId)
         {
             Id = id;
@@ -72,16 +68,16 @@ namespace PizzeriaVisual
             {
                 Console.WriteLine("Your order is being prepared");
                 sendMessageToClient();
-                sendMessageToClerk();
+                
                 sendMessagetoAllDelivery();
             }
             else if(this.Status == 1)
             {
-                Console.WriteLine("Your order is ready");
+                sendMessageToClerk();
             }
             else if(this.Status == 2)
             {
-                Console.WriteLine("Your order is being delivered");
+                sendMessageToClerk();
             }
         }
 
@@ -134,9 +130,16 @@ namespace PizzeriaVisual
             }
             else if (Status == 1)
             {
+                Console.WriteLine("je vais modifier");
+                Console.WriteLine("nouveau deliveryID" + DeliveryId);
+                DatabaseManager.UpdateItem<Order>(o => o.Id == Id, o => { o.Status = Status; o.DeliveryId = DeliveryId; }, "C:\\Users\\jukle\\source\\repos\\PizzeriaVisual\\PizzeriaVisual\\Databases\\Order.json");
                 string message = "Order taken by delivery man id " + DeliveryId;
                 _communicationServices.SendMessage(message, "clerk_" + ClerkId);
-                DatabaseManager.UpdateItem<Order>(o => o.Id == Id, o => { o.Status = Status; o.DeliveryId = DeliveryId; }, "C:\\Users\\jukle\\source\\repos\\PizzeriaVisual\\PizzeriaVisual\\Databases\\Order.json");
+            }
+            else if (Status == 2)
+            {
+                string message = "Closing order" + Id + " made by " + ClientId + " at " + Date + " registered by " + ClerkId + " composed of " + developpOrder(Pizzas, Drinks) + " has been saved";
+                _communicationServices.SendMessage(message, "clerk_" + ClerkId);
             }
         }
         public void sendMessagetoAllDeliveryAsync()

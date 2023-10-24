@@ -45,12 +45,12 @@ namespace PizzeriaVisual
 
             if (!string.IsNullOrEmpty(command))
             {
-                label2.Text = command;
+                label4.Text = command;
                 string[] words = command.Split(' ');
 
                 if (words.Length > 2)
                 {
-                    commandId = Convert.ToInt32(words[2]);
+                    commandId = Convert.ToInt32(words[3]);
                 }
                 else
                 {

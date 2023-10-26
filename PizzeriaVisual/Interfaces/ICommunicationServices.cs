@@ -11,6 +11,6 @@ namespace PizzeriaVisual.Interfaces
         void SendMessage(string message, string queueName);
 
         Task<string> ProcessOneMessage(string queueName);
-        List<string> ProcessAllMessages(string queueName);
+        Task<List<string>> ProcessAllMessages(string queueName);
     }
 }

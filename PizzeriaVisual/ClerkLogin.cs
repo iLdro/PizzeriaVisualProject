@@ -59,7 +59,7 @@ namespace PizzeriaVisual
             {
                 var clerkOperations = new ClerkOperations(clerk);
                 clerkOperations.Show();
-                this.Hide();
+                this.Close();
             }
 
         }

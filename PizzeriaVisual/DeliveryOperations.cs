@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -31,13 +32,9 @@ namespace PizzeriaVisual
 
         private async void DeliveryOperations_Load(object sender, EventArgs e)
         {
-            bool consumeAll = true;
-
             // Réception des messages de "delivery_{delivery.Id}" de manière asynchrone
             privateMessage = await Task.Run(() => communicationServices.ProcessAllMessages("delivery_" + delivery.Id));
             label1.Text = string.Join(Environment.NewLine, privateMessage);
-
-            consumeAll = false;
 
             // Réception d'un message de "delivery" de manière asynchrone
             command = await Task.Run(() => communicationServices.ProcessOneMessage("delivery"));
@@ -54,14 +51,12 @@ namespace PizzeriaVisual
                 }
                 else
                 {
-                    // Gérer le cas où la chaîne ne contient pas suffisamment de mots.
-                    // Peut-être afficher un message d'erreur.
+
                 }
             }
             else
             {
-                // Gérer le cas où command est null ou vide (pas de message dans la file d'attente).
-                // Peut-être afficher un message indiquant qu'aucun message n'a été trouvé.
+
             }
         }
 

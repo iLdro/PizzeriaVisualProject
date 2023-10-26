@@ -86,6 +86,12 @@
     <Compile Include="DeliveryOperations.Designer.cs">
       <DependentUpon>DeliveryOperations.cs</DependentUpon>
     </Compile>
+    <Compile Include="ClientOperations.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClientOperations.Designer.cs">
+      <DependentUpon>ClientOperations.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pizza.cs" />
     <Compile Include="ClerkOperations.cs">
       <SubType>Form</SubType>
@@ -154,6 +160,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DeliveryLogin.resx">
       <DependentUpon>DeliveryLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ClientOperations.resx">
+      <DependentUpon>ClientOperations.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Home.resx">
       <DependentUpon>Home.cs</DependentUpon>

@@ -68,7 +68,7 @@ namespace PizzeriaVisual
             {
                 Console.WriteLine("Your order is being prepared");
                 sendMessageToClient();
-                
+                sendMessageToClerk();
                 sendMessagetoAllDelivery();
             }
             else if(this.Status == 1)
@@ -78,6 +78,7 @@ namespace PizzeriaVisual
             else if(this.Status == 2)
             {
                 sendMessageToClerk();
+                sendClosingMessageToDelivery();
             }
         }
 
@@ -126,7 +127,7 @@ namespace PizzeriaVisual
                             " made by " + ClientId +
                             " at " + Date + " registered by " + ClerkId +
                             " composed of " + developpOrder(Pizzas, Drinks) + " has been saved";
-                _communicationServices.SendMessage(message, "clerk_" + ClerkId);
+            _communicationServices.SendMessage(message, "clerk_" + ClerkId);
             }
             else if (Status == 1)
             {
@@ -138,15 +139,15 @@ namespace PizzeriaVisual
             }
             else if (Status == 2)
             {
-                string message = "Closing order" + Id + " made by " + ClientId + " at " + Date + " registered by " + ClerkId + " composed of " + developpOrder(Pizzas, Drinks) + " has been saved";
+                string message = "Closing order" + Id + " made by " + ClientId + " at " + Date + "Total Price : " + TotalPrice;
                 _communicationServices.SendMessage(message, "clerk_" + ClerkId);
             }
         }
+
         public void sendMessagetoAllDeliveryAsync()
         {
             var th = new Thread(() => sendMessagetoAllDelivery());
             th.Start();
-
 
         }
 
@@ -158,5 +159,10 @@ namespace PizzeriaVisual
                             "\n product : " + developpOrder(Pizzas, Drinks);
             _communicationServices.SendMessage(message, "delivery");
         }
-           }
+
+        public void sendClosingMessageToDelivery(){
+            string message = "Closing order" + Id + " made at "  + Date + "Total Price : " + TotalPrice;
+            _communicationServices.SendMessage(message, "delivery_" + DeliveryId);
+        }
+    }
 }

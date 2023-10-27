@@ -133,9 +133,13 @@ namespace PizzeriaVisual.Services
 
         public int validateOrder(int orderId)
         {
+          
             Order a = DatabaseManager.FindBy<Order>("C:\\Users\\jukle\\source\\repos\\PizzeriaVisual\\PizzeriaVisual\\Databases\\Order.json", o => o.Id == orderId).FirstOrDefault();
-            a.Status = 2;
-            a.sendMessage();
+            if (a.Status == 1) { 
+                a.Status = 2;
+                a.sendMessage();
+            }
+            return 1;
         }
     }
 }

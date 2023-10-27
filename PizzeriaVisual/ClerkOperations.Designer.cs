@@ -107,6 +107,7 @@
             this.label4.Size = new System.Drawing.Size(94, 13);
             this.label4.TabIndex = 7;
             this.label4.Text = "No new messages";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // textBox2
             // 
@@ -169,7 +170,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(566, 293);
+            this.button1.Location = new System.Drawing.Point(564, 282);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 15;
@@ -188,7 +189,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(566, 340);
+            this.button3.Location = new System.Drawing.Point(564, 326);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 17;

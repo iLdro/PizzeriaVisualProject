@@ -1,4 +1,5 @@
-﻿using PizzeriaVisual.Services;
+﻿using PizzeriaVisual.Interfaces;
+using PizzeriaVisual.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,8 @@ namespace PizzeriaVisual
         private ClientServices clientServices;
         private OrderServices orderServices;
         private Clerk clerk;
+        private List<string> privateMessage;
+        private CommunicationServices communicationServices;
         public ClerkOperations(Clerk clerkGet)
         {
             InitializeComponent();
@@ -23,6 +26,7 @@ namespace PizzeriaVisual
             Console.WriteLine(clerk.Name);
             clientServices = new ClientServices();
             orderServices = new OrderServices();
+            communicationServices = new CommunicationServices();
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
@@ -67,15 +71,22 @@ namespace PizzeriaVisual
             this.Hide();
         }
 
-        private void ClerkOperations_Load(object sender, EventArgs e)
+        private async void ClerkOperations_Load(object sender, EventArgs e)
         {
-
+            privateMessage = await Task.Run(() => communicationServices.ProcessAllMessages("clerk_" + clerk.Id));
+            foreach(string priv in privateMessage)
+                       {
+                           Console.WriteLine(priv);
+                       };
+            label4.Text = string.Join(Environment.NewLine, privateMessage);
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            var phone = textBox8.Text;
-            var commandId = textBox9.Text;
+            var phone = textBox9.Text;
+            var commandId = textBox8.Text;
+
+            Console.WriteLine(commandId);
 
             Client client = DatabaseManager.FindBy<Client>("C:\\Users\\jukle\\source\\repos\\PizzeriaVisual\\PizzeriaVisual\\Databases\\Client.json", c => c.PhoneNumber == phone).FirstOrDefault();
             Order order = DatabaseManager.FindBy<Order>("C:\\Users\\jukle\\source\\repos\\PizzeriaVisual\\PizzeriaVisual\\Databases\\Order.json", o => o.Id == Int32.Parse(commandId)).FirstOrDefault();
@@ -87,6 +98,11 @@ namespace PizzeriaVisual
             {
                 MessageBox.Show("Client or order not found");
             }
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

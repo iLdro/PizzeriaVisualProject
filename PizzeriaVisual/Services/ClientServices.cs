@@ -19,19 +19,6 @@ namespace PizzeriaVisual.Services
             clients = DatabaseManager.AllItems<Client>("C:\\Users\\adria\\source\\repos\\skjdfkjsdfh\\PizzeriaVisual\\Databases\\Client.json");
             Console.WriteLine(clients);
         }
-        private CommunicationServices _communicationServices;
-        private string _queueName;
-
-        public ClientServices(string queueName)
-        {
-            _communicationServices = new CommunicationServices();
-            _queueName = queueName;
-        }
-
-        public void ListenForMessages()
-        {
-            _communicationServices.ProcessMessage(_queueName);
-        }
         public Client CreateClient(string name, string surname, string address, string phoneNumber)
         {
             Console.WriteLine(clients);

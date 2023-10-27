@@ -9,6 +9,8 @@ namespace PizzeriaVisual.Interfaces
     internal interface ICommunicationServices
     {
         void SendMessage(string message, string queueName);
-        void ProcessMessage(string queueName, bool consumeAll = false);
+
+        Task<string> ProcessOneMessage(string queueName);
+        Task<List<string>> ProcessAllMessages(string queueName);
     }
 }

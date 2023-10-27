@@ -60,6 +60,29 @@ namespace PizzeriaVisual
             return filteredItems;
         }
 
+        public static int UpdateItem<T>(Func<T, bool> predicate, Action<T> updateAction, string _path) where T : class
+        {
+            List<T> items = LoadDataFromJsonFile<T>(_path);
+
+ 
+            T itemToUpdate = items.FirstOrDefault(predicate);
+
+            if (itemToUpdate != null)
+            {
+
+                updateAction(itemToUpdate);
+
+
+                SaveDataToJsonFile(items, _path);
+                return 0; 
+            }
+            else
+            {
+                return 1; 
+            }
+        }
+
+
         private static List<T> LoadDataFromJsonFile<T>(string filePath) where T : class
         {
             List<T> data;

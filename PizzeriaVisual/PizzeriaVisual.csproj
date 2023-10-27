@@ -80,11 +80,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClientMessage.cs">
+    <Compile Include="DeliveryOperations.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ClientMessage.Designer.cs">
-      <DependentUpon>ClientMessage.cs</DependentUpon>
+    <Compile Include="DeliveryOperations.Designer.cs">
+      <DependentUpon>DeliveryOperations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ClientOperations.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClientOperations.Designer.cs">
+      <DependentUpon>ClientOperations.cs</DependentUpon>
     </Compile>
     <Compile Include="Pizza.cs" />
     <Compile Include="ClerkOperations.cs">
@@ -140,6 +146,9 @@
     <Compile Include="Services\ClerkServices.cs" />
     <Compile Include="Services\ClientServices.cs" />
     <Compile Include="Services\DeliveryServices.cs" />
+    <EmbeddedResource Include="DeliveryOperations.resx">
+      <DependentUpon>DeliveryOperations.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ClerkOperations.resx">
       <DependentUpon>ClerkOperations.cs</DependentUpon>
     </EmbeddedResource>
@@ -151,6 +160,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DeliveryLogin.resx">
       <DependentUpon>DeliveryLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ClientOperations.resx">
+      <DependentUpon>ClientOperations.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Home.resx">
       <DependentUpon>Home.cs</DependentUpon>

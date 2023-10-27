@@ -1,4 +1,4 @@
-﻿internal class Delivery
+﻿public class Delivery
 {
     public Delivery() { }
 

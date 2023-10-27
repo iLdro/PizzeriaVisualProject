@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace PizzeriaVisual
 {
@@ -19,23 +20,11 @@ namespace PizzeriaVisual
         public string ClerkName { get; set; }
         public int ClientId { get; set; }
 
-        private int _clerkId;
+        public int ClerkId { get; set; }
 
         private CommunicationServices _communicationServices;
 
-        public int ClerkId
-        {
-            get { return _clerkId; }
-            set
-            {
-                _clerkId = value;
-                if (value >= 0)
-                {
-                    Status = 1;
-                }
-            }
-        }
-
+      
         private int _status;
         public int Status
         {
@@ -46,8 +35,16 @@ namespace PizzeriaVisual
                ;
             }
         }
-
-        public int DeliveryId { get; set; }
+        private int _deliveryId;
+         public int DeliveryId
+        {
+            get { return _deliveryId; }
+            set
+            {
+                _deliveryId = value;
+                ;
+            }
+        }
         public Order(int id, DateTime date, int nbPizza, List<string> drinks, List<Pizza> pizzas, double totalPrice, string clientName, string clerkName, int clientId, int clerkId)
         {
             Id = id;
@@ -76,31 +73,96 @@ namespace PizzeriaVisual
             }
             else if(this.Status == 1)
             {
-                Console.WriteLine("Your order is ready");
+                sendMessageToClerk();
             }
             else if(this.Status == 2)
             {
-                Console.WriteLine("Your order is being delivered");
+                sendMessageToClerk();
+                sendClosingMessageToDelivery();
             }
+        }
+
+        public string developpOrder(List<Pizza> pizzas, List<string> toppings)
+        {
+            string orderList = "";
+            string listPizza = "";
+            string listTopping = "";
+            string listDrink = "";
+            int cpt = 0;
+            foreach (Pizza pizza in pizzas)
+            {   
+                cpt++;
+                listTopping = "";
+                foreach (String topping in pizza.Toppings)
+                {
+                    listTopping += topping + " ";
+                }
+                listPizza += "Pizza " + cpt + " of size " + pizza.Size + " : with " + listTopping + "\n";
+            }
+            foreach (string drink in Drinks)
+            {
+                listDrink += drink + " ";
+            }
+            orderList = "Pizza : " + listPizza + "\n Drink : " + listDrink ;
+            return orderList;
         }
 
         public void sendMessageToClient()
         {
             Console.WriteLine("Id",ClientId);
-            string message = "Your order is ready wiht " + Pizzas + "drinks" + Drinks;
+            string message = "Hello " + ClientName + "Your order is ready with " + developpOrder(Pizzas, Drinks);
             _communicationServices.SendMessage(message, "client_"+ ClientId);
         }
 
-        public void sendMessageToClerk()
+        public void sendMessageToKitchen()
         {
-            string message = "Your order is ready wiht ";
-            _communicationServices.SendMessage(message, "clerk_" + ClerkId);
+            string message = "The order n°" + Id + " is composed of " + developpOrder(Pizzas, Drinks) + " need to be prepared";
+            _communicationServices.SendMessage(message, "kitchen");
         }
-        public void sendMessagetoAllDelivery()
+
+        public void sendMessageToClerk()
+        { if (Status == 0)
+            {
+            string message = "The order  " + Id +
+                            " made by " + ClientId +
+                            " at " + Date + " registered by " + ClerkId +
+                            " composed of " + developpOrder(Pizzas, Drinks) + " has been saved";
+            _communicationServices.SendMessage(message, "clerk_" + ClerkId);
+            }
+            else if (Status == 1)
+            {
+                Console.WriteLine("je vais modifier");
+                Console.WriteLine("nouveau deliveryID" + DeliveryId);
+                DatabaseManager.UpdateItem<Order>(o => o.Id == Id, o => { o.Status = Status; o.DeliveryId = DeliveryId; }, "C:\\Users\\jukle\\source\\repos\\PizzeriaVisual\\PizzeriaVisual\\Databases\\Order.json");
+                string message = "Order taken by delivery man id " + DeliveryId;
+                _communicationServices.SendMessage(message, "clerk_" + ClerkId);
+            }
+            else if (Status == 2)
+            {
+                string message = "Closing order" + Id + " made by " + ClientId + " at " + Date + "Total Price : " + TotalPrice;
+                _communicationServices.SendMessage(message, "clerk_" + ClerkId);
+            }
+        }
+
+        public void sendMessagetoAllDeliveryAsync()
         {
-            string message = "The order number " + Id + " is ready to be taken";
+            var th = new Thread(() => sendMessagetoAllDelivery());
+            th.Start();
+
+        }
+
+        public void sendMessagetoAllDelivery(){
+            Thread.Sleep(1000);
+            string message = "The order number " + Id + 
+                            "\n Date : " + Date +
+                            "\n Client n°" + ClientId + 
+                            "\n product : " + developpOrder(Pizzas, Drinks);
             _communicationServices.SendMessage(message, "delivery");
         }
-        
+
+        public void sendClosingMessageToDelivery(){
+            string message = "Closing order" + Id + " made at "  + Date + "Total Price : " + TotalPrice;
+            _communicationServices.SendMessage(message, "delivery_" + DeliveryId);
+        }
     }
 }

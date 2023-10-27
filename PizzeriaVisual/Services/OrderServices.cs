@@ -40,7 +40,7 @@ namespace PizzeriaVisual.Services
             };
 
             orders = new List<Order>();
-            orders = DatabaseManager.AllItems<Order>("C:\\Users\\jukle\\source\\repos\\PizzeriaVisual\\PizzeriaVisual\\Databases\\Order.json");
+            orders = DatabaseManager.AllItems<Order>("C:\\Users\\adria\\source\\repos\\skjdfkjsdfh\\PizzeriaVisual\\Databases\\Order.json");
         }
 
         public int CreateOrder(DateTime date, List<string> Drinks, List<Pizza> pizzas, int TotalPrice, string clientName, string clerkName, int clientId, int clerkId, int status = 0)
@@ -115,7 +115,7 @@ namespace PizzeriaVisual.Services
 
             Console.WriteLine(neword);
 
-            DatabaseManager.CreateItem(neword, "C:\\Users\\jukle\\source\\repos\\PizzeriaVisual\\PizzeriaVisual\\Databases\\Order.json");
+            DatabaseManager.CreateItem(neword, "C:\\Users\\adria\\source\\repos\\skjdfkjsdfh\\PizzeriaVisual\\Databases\\Order.json");
             neword.sendMessage();
 
             return 1;
